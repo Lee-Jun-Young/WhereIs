@@ -3,8 +3,11 @@ package com.example.whereis.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
 import com.example.whereis.data.remote.api.CompanyApi
 import com.example.whereis.data.remote.RetrofitBuilder
@@ -17,6 +20,7 @@ import retrofit2.Response
 
 class AddActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var aBinding: ActivityAddBinding
+    private lateinit var viewModel: AddViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,29 +32,19 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun loadData() {
-        RetrofitBuilder().getInstance().create(CompanyApi::class.java).getGithubInfo()
-            .enqueue(object : Callback<CompanyList> {
-
-                override fun onResponse(call: Call<CompanyList>, response: Response<CompanyList>) {
-                    if (response.isSuccessful) {
-                        val body: CompanyList? = response.body()
-                        Log.d("test!!", body.toString())
-                        body?.let {
-                            body.companies.forEach { company ->
-                                val chip = Chip(this@AddActivity)
-                                chip.text = company.Name
-                                chip.setChipBackgroundColorResource(R.color.white)
-                                aBinding.chipGroup.addView(chip)
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<CompanyList>, t: Throwable) {
-                    Log.d("test!!", "실패")
-                    Log.d("test!!", t.message.toString())
-                }
-            })
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AddViewModel::class.java)
+        viewModel.getCompany()
+        viewModel.getCompany().observe(this, Observer {
+            it.forEach { company ->
+                val chip = Chip(this@AddActivity)
+                chip.text = company.Name
+                chip.setChipBackgroundColorResource(R.color.white)
+                aBinding.chipGroup.addView(chip)
+            }
+            Log.d("Response", it.toString())
+        })
     }
 
     override fun onClick(v: View?) {
