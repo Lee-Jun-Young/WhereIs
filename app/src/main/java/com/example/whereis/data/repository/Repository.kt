@@ -1,6 +1,5 @@
-package com.example.whereis.ui
+package com.example.whereis.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.whereis.data.remote.RetrofitBuilder

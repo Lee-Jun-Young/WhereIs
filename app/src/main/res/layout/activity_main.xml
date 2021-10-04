@@ -6,7 +6,7 @@
 
         <variable
             name="main"
-            type="com.example.whereis.ui.MainActivity" />
+            type="com.example.whereis.ui.main.MainActivity" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <include
             android:id="@+id/ToolBar"

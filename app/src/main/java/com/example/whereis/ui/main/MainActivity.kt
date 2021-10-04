@@ -1,4 +1,4 @@
-package com.example.whereis.ui
+package com.example.whereis.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityMainBinding
+import com.example.whereis.ui.add.AddActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
