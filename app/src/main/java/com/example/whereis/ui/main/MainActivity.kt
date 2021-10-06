@@ -5,22 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
-import com.example.whereis.data.repository.CompanyRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
 import com.example.whereis.databinding.ActivityMainBinding
-import com.example.whereis.ui.MainViewModelFactory
-import com.example.whereis.ui.ViewModelFactory
 import com.example.whereis.ui.add.AddActivity
-import com.example.whereis.ui.add.AddViewModel
-import com.google.android.material.chip.Chip
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val mainViewModel :MainViewModel by viewModels()
+    private lateinit var adapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +23,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.main = this@MainActivity
 
-        init()
+        initRecyclerview()
+
+        mainViewModel.getAllData().observe(this, Observer {
+            adapter.setList(it)
+            adapter.notifyDataSetChanged()
+        })
     }
 
-    fun init() {
-        val repository = TrackingInfoRepository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getData().observe(this, Observer {
-            Log.d("Response", it.toString())
-        })
+    fun initRecyclerview(){
+        adapter = MainAdapter()
+        mBinding.mainRecyclerview.adapter = adapter
     }
 
     override fun onClick(v: View?) {

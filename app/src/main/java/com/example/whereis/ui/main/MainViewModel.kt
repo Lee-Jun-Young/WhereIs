@@ -1,17 +1,32 @@
 package com.example.whereis.ui.main
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.example.whereis.data.repository.CompanyRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
-import com.example.whereis.model.Company
-import com.example.whereis.model.TrackingInfo
+import androidx.lifecycle.viewModelScope
+import com.example.whereis.data.repository.TrackingDataRepository
+import com.example.whereis.model.TrackingData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: TrackingInfoRepository) : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val trackingData = repository.getData()
+    private val repository = TrackingDataRepository(application)
+    private val data = repository.getAllData()
 
-    fun getData(): LiveData<TrackingInfo> {
-        return trackingData
+    fun getAllData(): LiveData<List<TrackingData>> {
+        return data
+    }
+
+    fun insertData(trackingData: TrackingData){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertData(trackingData)
+        }
+    }
+
+    fun deleteData(trackingData: TrackingData){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteData(trackingData)
+        }
     }
 }

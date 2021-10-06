@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="info"
-            type="com.example.whereis.model.TrackingInfo" />
+            name="track_data"
+            type="com.example.whereis.model.TrackingData" />
     </data>
 
     <LinearLayout
@@ -27,29 +27,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="택배사" />
+                android:text="@{track_data.company}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{info.invoiceNo}" />
+                android:text="@{track_data.trackingNum}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{info.itemName}" />
+                android:text="@{track_data.company_code}" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:layout_marginEnd="20dp"
             android:layout_gravity="center"
-            android:text="배송완료" />
+            android:layout_marginEnd="20dp"
+            android:text="배송완료"
+            android:textSize="24dp" />
 
     </LinearLayout>
 </layout>
