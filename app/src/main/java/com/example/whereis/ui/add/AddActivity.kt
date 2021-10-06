@@ -1,27 +1,23 @@
 package com.example.whereis.ui.add
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
-import com.example.whereis.data.repository.CompanyRepository
 import com.example.whereis.databinding.ActivityAddBinding
 import com.example.whereis.model.Company
 import com.example.whereis.model.TrackingData
-import com.example.whereis.ui.MainViewModelFactory
-import com.example.whereis.ui.ViewModelFactory
 import com.example.whereis.ui.main.MainViewModel
 import com.google.android.material.chip.Chip
 
 class AddActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var aBinding: ActivityAddBinding
-    private lateinit var viewModel: AddViewModel
-    private lateinit var mainViewModel: MainViewModel
+    private val addViewModel: AddViewModel by viewModels()
+    private val mainViewModel :MainViewModel by viewModels()
     private lateinit var selectCompany: Company
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,27 +26,23 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         aBinding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         aBinding.add = this@AddActivity
 
-        mainViewModel = ViewModelProvider(this, MainViewModelFactory(application)).get(MainViewModel::class.java)
-        selectCompany = Company(" "," ")
+        selectCompany = Company(" ", " ")
 
         setCompanyChipGroup()
 
     }
 
     fun setCompanyChipGroup() {
-        val repository = CompanyRepository()
-        val viewModelFactory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AddViewModel::class.java)
-        viewModel.getCompany().observe(this, Observer {
+        addViewModel.getCompany().observe(this, Observer {
             it.forEach { company ->
                 val chip = Chip(this@AddActivity)
                 chip.text = company.Name
                 chip.setChipBackgroundColorResource(R.color.white)
                 chip.setCheckable(true)
                 chip.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked){
+                    if (isChecked) {
                         selectCompany = Company(company.Code, company.Name)
-                    }else{
+                    } else {
                         selectCompany = Company(" ", " ")
                     }
                 }
@@ -66,27 +58,29 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_addInfo -> {
                 val num = aBinding.etTrackingNumber.text.toString()
-                Log.d("test!!", selectCompany.toString())
-                when {
-                    num == "" -> {
-                        Toast.makeText(this, "운송장을 입력해 주세요!!", Toast.LENGTH_SHORT).show()
-                    }
-                    selectCompany.Name == " " -> {
-                        Toast.makeText(this, "택배사를 선택해 주세요!!", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {
-                        val temp = TrackingData(num, selectCompany.Name, selectCompany.Code)
-                        Log.d("test!!", "성공")
-                        mainViewModel.insertData(temp)
-                        finish()
-                    }
+                if (isEmptyChecked(num, selectCompany)) {
+                    val temp = TrackingData(num, selectCompany.Name, selectCompany.Code)
+                    mainViewModel.insertData(temp)
+                    finish()
                 }
             }
         }
     }
 
-    fun isEmptyChecked() {
-
+    private fun isEmptyChecked(num: String, selectCompany: Company): Boolean {
+        return when {
+            num == "" -> {
+                Toast.makeText(this, "운송장을 입력해 주세요!!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            selectCompany.Name == " " -> {
+                Toast.makeText(this, "택배사를 선택해 주세요!!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> {
+                true
+            }
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.whereis.data.repository
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.whereis.data.remote.RetrofitBuilder
@@ -11,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class CompanyRepository {
+class CompanyRepository(application: Application) {
 
     private val retrofit: Retrofit = RetrofitBuilder().getInstance()
     private val api = retrofit.create(CompanyApi::class.java)
