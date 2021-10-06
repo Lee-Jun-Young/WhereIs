@@ -1,7 +1,9 @@
 package com.example.whereis.ui.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -28,12 +30,11 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         aBinding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         aBinding.add = this@AddActivity
 
-        mainViewModel = ViewModelProvider(
-            this,
-            MainViewModelFactory(application)
-        ).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this, MainViewModelFactory(application)).get(MainViewModel::class.java)
+        selectCompany = Company(" "," ")
 
         setCompanyChipGroup()
+
     }
 
     fun setCompanyChipGroup() {
@@ -46,8 +47,12 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                 chip.text = company.Name
                 chip.setChipBackgroundColorResource(R.color.white)
                 chip.setCheckable(true)
-                chip.setOnClickListener {
-                    selectCompany = company
+                chip.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked){
+                        selectCompany = Company(company.Code, company.Name)
+                    }else{
+                        selectCompany = Company(" ", " ")
+                    }
                 }
                 aBinding.chipGroup.addView(chip)
             }
@@ -61,13 +66,27 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_addInfo -> {
                 val num = aBinding.etTrackingNumber.text.toString()
-
-                val temp = TrackingData(num, selectCompany.Name, selectCompany.Code)
-                mainViewModel.insertData(temp)
-
-                finish()
+                Log.d("test!!", selectCompany.toString())
+                when {
+                    num == "" -> {
+                        Toast.makeText(this, "운송장을 입력해 주세요!!", Toast.LENGTH_SHORT).show()
+                    }
+                    selectCompany.Name == " " -> {
+                        Toast.makeText(this, "택배사를 선택해 주세요!!", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        val temp = TrackingData(num, selectCompany.Name, selectCompany.Code)
+                        Log.d("test!!", "성공")
+                        mainViewModel.insertData(temp)
+                        finish()
+                    }
+                }
             }
         }
+    }
+
+    fun isEmptyChecked() {
+
     }
 
 }
