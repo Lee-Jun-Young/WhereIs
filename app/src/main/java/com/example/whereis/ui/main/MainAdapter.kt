@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.databinding.ItemTrackinginfoBinding
 import com.example.whereis.model.TrackingData
+import com.example.whereis.model.TrackingInfo
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    private val items = ArrayList<TrackingData>()
+    private val items = ArrayList<TrackingInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val binding =
-            ItemTrackinginfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemTrackinginfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MainViewHolder(binding)
     }
 
@@ -24,19 +24,19 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         return items.size
     }
 
-    fun setList(trackingData: List<TrackingData>) {
+    fun setList(trackingInfo: TrackingInfo) {
         items.clear()
-        items.addAll(trackingData)
+        items.add(trackingInfo)
     }
 
-    fun getDataAt(position: Int): TrackingData {
-        return items.get(position)
+    fun getDataAt(position: Int): TrackingInfo {
+        return items[position]
     }
 
     inner class MainViewHolder(val binding: ItemTrackinginfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(trackingData: TrackingData) {
-            binding.trackData = trackingData
+        fun onBind(trackingInfo: TrackingInfo) {
+            binding.trackData = trackingInfo
         }
     }
 }

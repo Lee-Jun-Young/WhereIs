@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TrackingInfo(
     @SerializedName("TrackingInfo")
-    val addUrl:String,
     val complete:String,
-    val complteYN:String,
     val estimate:String,
     val invoiceNo:String,
     val itemName:String,

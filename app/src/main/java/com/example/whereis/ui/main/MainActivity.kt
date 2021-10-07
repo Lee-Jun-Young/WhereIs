@@ -1,10 +1,10 @@
 package com.example.whereis.ui.main
 
 import android.content.Intent
-import android.media.MediaParser
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityMainBinding
-import com.example.whereis.model.TrackingData
+import com.example.whereis.model.TrackingInfo
 import com.example.whereis.ui.add.AddActivity
 
 
@@ -31,12 +31,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initRecyclerview()
 
         mainViewModel.getAllData().observe(this, Observer {
-            adapter.setList(it)
-            adapter.notifyDataSetChanged()
+            it.forEach {
+                mainViewModel.getTrackingData(it.company_code, it.trackingNum).observe(this, {
+                    if(it.result == null){
+                        Log.d("test!!","실패")
+                    }else{
+                        adapter.setList(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+            }
         })
+
     }
 
-    fun initRecyclerview() {
+    private fun initRecyclerview() {
 
         val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT /* | ItemTouchHelper.RIGHT */) {
@@ -52,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {
-                    mainViewModel.deleteData(adapter.getDataAt(position))
+                   // mainViewModel.deleteData(adapter.getDataAt(position))
                 }
             }
         }

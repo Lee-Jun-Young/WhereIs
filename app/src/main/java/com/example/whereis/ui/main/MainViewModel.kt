@@ -5,14 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.whereis.data.repository.TrackingDataRepository
+import com.example.whereis.data.repository.TrackingInfoRepository
 import com.example.whereis.model.TrackingData
+import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = TrackingDataRepository(application)
+    private val infoRepository = TrackingInfoRepository(application)
+
     private val data = repository.getAllData()
+
+    fun getTrackingData(companyCode: String, trackingNum: String): LiveData<TrackingInfo> {
+        return infoRepository.getData(companyCode, trackingNum)
+    }
 
     fun getAllData(): LiveData<List<TrackingData>> {
         return data
