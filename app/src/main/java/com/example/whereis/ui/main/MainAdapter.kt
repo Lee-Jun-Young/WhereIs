@@ -11,7 +11,8 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     private val items = ArrayList<TrackingData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val binding = ItemTrackinginfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemTrackinginfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MainViewHolder(binding)
     }
 
@@ -26,6 +27,10 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     fun setList(trackingData: List<TrackingData>) {
         items.clear()
         items.addAll(trackingData)
+    }
+
+    fun getDataAt(position: Int): TrackingData {
+        return items.get(position)
     }
 
     inner class MainViewHolder(val binding: ItemTrackinginfoBinding) :

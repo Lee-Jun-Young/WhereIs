@@ -1,20 +1,25 @@
 package com.example.whereis.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaParser
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityMainBinding
+import com.example.whereis.model.TrackingData
 import com.example.whereis.ui.add.AddActivity
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
-    private val mainViewModel :MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +36,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    fun initRecyclerview(){
+    fun initRecyclerview() {
+
+        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT /* | ItemTouchHelper.RIGHT */) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    mainViewModel.deleteData(adapter.getDataAt(position))
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(mBinding.mainRecyclerview)
+
         adapter = MainAdapter()
         mBinding.mainRecyclerview.adapter = adapter
     }
