@@ -17,7 +17,7 @@ import com.google.android.material.chip.Chip
 class AddActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var aBinding: ActivityAddBinding
     private val addViewModel: AddViewModel by viewModels()
-    private val mainViewModel :MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var selectCompany: Company
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun setCompanyChipGroup() {
+    private fun setCompanyChipGroup() {
         addViewModel.getCompany().observe(this, Observer {
             it.forEach { company ->
                 val chip = Chip(this@AddActivity)
@@ -57,11 +57,13 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.btn_addInfo -> {
-                val num = aBinding.etTrackingNumber.text.toString()
-                if (isEmptyChecked(num, selectCompany)) {
-                    val temp = TrackingData(num, selectCompany.Name, selectCompany.Code)
-                    mainViewModel.insertData(temp)
-                    finish()
+                val trackingNum = aBinding.etTrackingNumber.text.toString()
+                if (isEmptyChecked(trackingNum, selectCompany)) {
+                    if(trackingNumFormatChecked(trackingNum)) {
+                        val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
+                        mainViewModel.insertData(temp)
+                        finish()
+                    }
                 }
             }
         }
@@ -83,4 +85,13 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun trackingNumFormatChecked(trackingNum: String): Boolean {
+        val regex = "^[A-Z0-9_-]{9,22}$".toRegex()
+
+        return if(!trackingNum.matches(regex)) {
+            Toast.makeText(this, "운송장 형식을 한번 더 확인해주세요.", Toast.LENGTH_SHORT).show()
+            false
+        } else
+            true
+    }
 }
