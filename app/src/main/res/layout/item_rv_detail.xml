@@ -35,14 +35,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{detailData.trans_where}"
+                android:text="@{detailData.where}"
                 tools:text="현재 위치" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{detailData.trans_tel}"
+                android:text="@{detailData.telno}"
                 tools:text="전화 번호" />
 
             <TextView

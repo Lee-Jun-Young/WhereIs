@@ -17,14 +17,28 @@ import com.example.whereis.ui.main.MainViewModel
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
+    private lateinit var adapter: DetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         dBinding.detail = this@DetailActivity
-        dBinding.data = intent.getSerializableExtra("data") as TrackingInfo
 
+        initView()
+    }
+
+    fun initView(){
+        val data =  intent.getSerializableExtra("data") as TrackingInfo
+        dBinding.data = data
+
+        val temp = data.trackingDetails
+
+        adapter = DetailAdapter()
+        dBinding.detailRecyclerview.adapter = adapter
+        adapter.setList(temp)
+
+        Log.d("test!!", temp.toString())
     }
 
     override fun onClick(v: View?) {

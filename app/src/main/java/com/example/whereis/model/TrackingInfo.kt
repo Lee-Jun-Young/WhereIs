@@ -18,7 +18,7 @@ data class TrackingInfo(
 
 data class TrackingDetail(
     val kind: String,
-    val trans_tel: String,
+    val telno: String,
     val timeString: String,
-    val trans_where: String
+    val where: String
 ) : Serializable
