@@ -20,8 +20,8 @@ class TrackingDataRepository(application: Application) {
         trackingDao.insertData((trackingData))
     }
 
-    fun deleteData(trackingData: TrackingData){
-        trackingDao.deleteData((trackingData))
+    fun deleteData(trackingNum: String){
+        trackingDao.deleteData(trackingNum)
     }
 
     fun getAllData() : LiveData<List<TrackingData>>{

@@ -32,9 +32,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteData(trackingData: TrackingData){
+    fun deleteData(trackingNum: String){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteData(trackingData)
+            repository.deleteData(trackingNum)
         }
     }
 }

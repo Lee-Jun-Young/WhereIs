@@ -13,6 +13,6 @@ interface TrackingDao{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertData(trackingData: TrackingData)
 
-    @Delete
-    fun deleteData(trackingData: TrackingData)
+    @Query("DELETE FROM tracking_data WHERE trackingNum = :trackingNum")
+    fun deleteData(trackingNum: String)
 }

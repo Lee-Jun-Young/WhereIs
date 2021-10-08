@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
+    private val datas : MutableList<TrackingInfo> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +32,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initRecyclerview()
 
         mainViewModel.getAllData().observe(this, Observer {
+            datas.clear()
             it.forEach {
-                mainViewModel.getTrackingData(it.company_code, it.trackingNum).observe(this, {
-                    if(it.result == null){
-                        Log.d("test!!","실패")
-                    }else{
-                        adapter.setList(it)
-                        adapter.notifyDataSetChanged()
-                    }
+                val code = it.company_code
+                val trackingNum = it.trackingNum
+                mainViewModel.getTrackingData(code,trackingNum).observe(this,{
+                    datas.add(it)
+                    adapter.setList(datas)
                 })
             }
+            //adapter.setList(it)
         })
-
     }
 
     private fun initRecyclerview() {
@@ -61,10 +61,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {
-                   // mainViewModel.deleteData(adapter.getDataAt(position))
+                    mainViewModel.deleteData(adapter.getDataAt(position))
                 }
             }
         }
+
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(mBinding.mainRecyclerview)
 
