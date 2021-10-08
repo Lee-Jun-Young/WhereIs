@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereIs"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.add.AddActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.add.AddActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,9 +2,7 @@ package com.example.whereis.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -41,7 +39,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     adapter.setList(datas)
                 })
             }
-            //adapter.setList(it)
         })
     }
 

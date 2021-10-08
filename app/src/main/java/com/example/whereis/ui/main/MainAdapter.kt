@@ -1,13 +1,13 @@
 package com.example.whereis.ui.main
 
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.databinding.ItemTrackinginfoBinding
-import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
+import com.example.whereis.ui.detail.DetailActivity
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
@@ -42,6 +42,13 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(trackingInfo: TrackingInfo) {
             binding.trackData = trackingInfo
+
+            itemView.setOnClickListener {
+                Intent(itemView.context, DetailActivity::class.java).apply {
+                    putExtra("data", trackingInfo)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { itemView.context.startActivity(this) }
+            }
         }
     }
 

@@ -3,9 +3,7 @@ package com.example.whereis.ui.add
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.example.whereis.data.repository.CompanyRepository
-import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.model.Company
 
 class AddViewModel(application: Application) : AndroidViewModel(application) {

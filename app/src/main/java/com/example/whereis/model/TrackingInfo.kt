@@ -1,25 +1,24 @@
 package com.example.whereis.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class TrackingInfo(
     @SerializedName("TrackingInfo")
-    val complete:String,
-    val estimate:String,
-    val invoiceNo:String,
-    val itemName:String,
-    val level:String,
-    val orderNumber1:String,
-    val productInfo:String,
-    val result:String,
+    val complete: String,
+    val estimate: String,
+    val invoiceNo: String,
+    val itemName: String,
+    val level: String,
+    val orderNumber1: String,
+    val productInfo: String,
+    val result: String,
     val trackingDetails: List<TrackingDetail>
-)
+) : Serializable
 
 data class TrackingDetail(
-    val code: String,
     val kind: String,
-    val level: String,
-    val manName: String,
-    val manPic: String,
-    val remark:String
-)
+    val trans_tel: String,
+    val timeString: String,
+    val trans_where: String
+) : Serializable
