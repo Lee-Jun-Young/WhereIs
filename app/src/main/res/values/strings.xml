@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WhereIs</string>
+
+    <!-- Add -->
+    <string name="add_btnAddInfoText">저장</string>
+    <string name="add_trackingNumText">운송장 번호를 입력해주세요.</string>
+    <string name="add_companyText">택배회사를 선택해주세요.</string>
+
 </resources>

@@ -23,7 +23,7 @@
             android:id="@+id/life_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp">
+            android:elevation="@dimen/toolbar_elevation">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,26 +46,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="@dimen/detail_marginStartEnd"
+            android:layout_marginEnd="@dimen/detail_marginStartEnd"
+            android:layout_marginBottom="@dimen/detail_marginBottom"
             android:orientation="vertical"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp">
+            android:paddingTop="@dimen/detail_paddingTopBottom"
+            android:paddingBottom="@dimen/detail_paddingTopBottom">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@{data.result}"
-                android:textSize="32dp"
+                android:textSize="@dimen/detail_textSize"
                 tools:text="배송 완료" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/detail_textBigMarginTop"
                 android:text="@{data.invoiceNo}"
                 tools:text="운송장 번호" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/detail_textSmallMarginTop"
                 android:text="@{data.itemName}"
                 tools:text="아이템 이름" />
 
@@ -83,10 +83,10 @@
             android:id="@+id/detail_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginStart="@dimen/detail_rv_marginStartEnd"
+            android:layout_marginTop="@dimen/detail_rv_marginTopBottom"
+            android:layout_marginEnd="@dimen/detail_rv_marginStartEnd"
+            android:layout_marginBottom="@dimen/detail_rv_marginTopBottom"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

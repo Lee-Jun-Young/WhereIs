@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingStart="15dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="10dp">
+        android:paddingStart="@dimen/main_item_paddingStartEnd"
+        android:paddingTop="@dimen/main_item_paddingTopBottom"
+        android:paddingEnd="@dimen/main_item_paddingStartEnd"
+        android:paddingBottom="@dimen/main_item_paddingTopBottom">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,26 +28,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/main_item_textMarginTop"
                 android:text="@{track_data.invoiceNo}"
                 tools:text="송장번호" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/main_item_textMarginTop"
                 android:text="@{track_data.itemName}"
                 tools:text="택배이름" />
 
         </LinearLayout>
 
         <TextView
+            bind_level="@{track_data.level}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="20dp"
-            bind_level="@{track_data.level}"
-            android:textSize="24dp"
+            android:textSize="@dimen/main_item_textSize"
             tools:text="level" />
 
     </LinearLayout>

@@ -30,17 +30,17 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recyclerview"
                 android:layout_width="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <ImageButton
                 android:id="@+id/btn_moveAddActivity"
-                android:layout_width="50sp"
-                android:layout_height="50sp"
+                android:layout_width="@dimen/main_btnAddSize"
+                android:layout_height="@dimen/main_btnAddSize"
                 android:layout_gravity="bottom|end"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="@dimen/main_btnAddMargin"
+                android:layout_marginBottom="@dimen/main_btnAddMargin"
                 android:background="?attr/selectableItemBackground"
                 android:focusable="false"
                 android:onClick="@{main::onClick}"
