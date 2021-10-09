@@ -2,6 +2,7 @@ package com.example.whereis.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val code = it.company_code
                 val trackingNum = it.trackingNum
                 mainViewModel.getTrackingData(code,trackingNum).observe(this,{
+                    Log.d("test!!",it.toString())
                     datas.add(it)
                     adapter.setList(datas)
                 })

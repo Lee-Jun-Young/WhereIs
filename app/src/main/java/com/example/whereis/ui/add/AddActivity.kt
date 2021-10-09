@@ -1,6 +1,7 @@
 package com.example.whereis.ui.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -29,7 +30,6 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         selectCompany = Company(" ", " ")
 
         setCompanyChipGroup()
-
     }
 
     private fun setCompanyChipGroup() {
@@ -38,12 +38,12 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                 val chip = Chip(this@AddActivity)
                 chip.text = company.Name
                 chip.setChipBackgroundColorResource(R.color.white)
-                chip.setCheckable(true)
+                chip.isCheckable = true
                 chip.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        selectCompany = Company(company.Code, company.Name)
+                    selectCompany = if (isChecked) {
+                        Company(company.Code, company.Name)
                     } else {
-                        selectCompany = Company(" ", " ")
+                        Company(" ", " ")
                     }
                 }
                 aBinding.chipGroup.addView(chip)
@@ -59,10 +59,21 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_addInfo -> {
                 val trackingNum = aBinding.etTrackingNumber.text.toString()
                 if (isEmptyChecked(trackingNum, selectCompany)) {
-                    if(trackingNumFormatChecked(trackingNum)) {
+                    if (trackingNumFormatChecked(trackingNum)) {
                         val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
-                        mainViewModel.insertData(temp)
-                        finish()
+                        mainViewModel.getTrackingData(temp.company_code, trackingNum)
+                            .observe(this, {
+                                if (it.result == "Y") {
+                                    mainViewModel.insertData(temp)
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "입력한 정보가 잘못되었습니다. 다시 입력해 주세요!!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            })
                     }
                 }
             }
@@ -88,7 +99,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     private fun trackingNumFormatChecked(trackingNum: String): Boolean {
         val regex = "^[A-Z0-9_-]{9,22}$".toRegex()
 
-        return if(!trackingNum.matches(regex)) {
+        return if (!trackingNum.matches(regex)) {
             Toast.makeText(this, "운송장 형식을 한번 더 확인해주세요.", Toast.LENGTH_SHORT).show()
             false
         } else

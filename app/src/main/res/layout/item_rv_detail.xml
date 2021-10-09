@@ -15,15 +15,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="20dp"
         android:paddingTop="10dp"
-        android:paddingEnd="20dp"
         android:paddingBottom="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{detailData.kind}"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             tools:text="진행상태" />
 
         <LinearLayout
@@ -36,20 +37,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{detailData.where}"
+                android:textSize="12dp"
                 tools:text="현재 위치" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:text="@{detailData.telno}"
+                android:textSize="12dp"
                 tools:text="전화 번호" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:text="@{detailData.timeString}"
+                android:textSize="12dp"
                 tools:text="진행 시간" />
 
         </LinearLayout>
