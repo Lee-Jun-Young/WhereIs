@@ -1,19 +1,12 @@
 package com.example.whereis.ui.detail
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityDetailBinding
-import com.example.whereis.databinding.ActivityMainBinding
 import com.example.whereis.model.TrackingInfo
-import com.example.whereis.ui.add.AddActivity
-import com.example.whereis.ui.main.MainAdapter
-import com.example.whereis.ui.main.MainViewModel
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
@@ -28,7 +21,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         initView()
     }
 
-    fun initView(){
+    private fun initView(){
         val data =  intent.getSerializableExtra("data") as TrackingInfo
         dBinding.data = data
 
@@ -38,7 +31,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding.detailRecyclerview.adapter = adapter
         adapter.setList(temp)
 
-        Log.d("test!!", temp.toString())
     }
 
     override fun onClick(v: View?) {

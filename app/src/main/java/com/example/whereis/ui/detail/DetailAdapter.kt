@@ -1,14 +1,11 @@
 package com.example.whereis.ui.detail
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.databinding.ItemRvDetailBinding
-import com.example.whereis.databinding.ItemTrackinginfoBinding
 import com.example.whereis.model.TrackingDetail
-import com.example.whereis.model.TrackingInfo
 
 class DetailAdapter : RecyclerView.Adapter<DetailAdapter.MainViewHolder>() {
 
