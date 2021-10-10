@@ -8,13 +8,8 @@ import com.example.whereis.model.TrackingData
 
 class TrackingDataRepository(application: Application) {
 
-    private val trackingDao: TrackingDao
-    private val trackingDataList: LiveData<List<TrackingData>>
-
-    init {
-        trackingDao = TrackingDatabase.getDatabase(application)!!.trackingDao()
-        trackingDataList = trackingDao.getAll()
-    }
+    private val trackingDao: TrackingDao = TrackingDatabase.getDatabase(application)!!.trackingDao()
+    private val trackingDataList: LiveData<List<TrackingData>> = trackingDao.getAll()
 
     fun insertData(trackingData: TrackingData){
         trackingDao.insertData((trackingData))

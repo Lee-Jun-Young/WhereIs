@@ -6,6 +6,8 @@
     <dimen name="toolbar_elevation">4dp</dimen>
 
     <!-- Main -->
+    <dimen name="main_marginTop">20dp</dimen>
+    <dimen name="main_marginBottom">10dp</dimen>
     <dimen name="main_btnAddSize">50sp</dimen>
     <dimen name="main_btnAddMargin">20dp</dimen>
     <dimen name="main_item_paddingStartEnd">15dp</dimen>
@@ -13,18 +15,19 @@
     <dimen name="main_item_textMarginTop">5dp</dimen>
     <dimen name="main_item_textMarginEnd">20dp</dimen>
     <dimen name="main_item_textSize">24dp</dimen>
+    <dimen name="main_marginStartEnd">20dp</dimen>
 
     <!-- Add -->
-    <dimen name="add_textSize">16dp</dimen>
+    <dimen name="add_textSize">18dp</dimen>
     <dimen name="add_btnTextSize">20dp</dimen>
-    <dimen name="add_btnMarginEnd">15dp</dimen>
+    <dimen name="add_btnMarginEnd">20dp</dimen>
     <dimen name="add_chip_marginEnd">5dp</dimen>
     <dimen name="add_chip_marginStart">10dp</dimen>
     <dimen name="add_scrollView_marginTop">10dp</dimen>
     <dimen name="add_editTextMarginTop">5dp</dimen>
     <dimen name="add_editTextWidth">200dp</dimen>
     <dimen name="add_marginStart">10dp</dimen>
-    <dimen name="add_textMarginTop">8dp</dimen>
+    <dimen name="add_textMarginTop">10dp</dimen>
 
     <!-- Detail -->
     <dimen name="detail_marginStartEnd">20dp</dimen>
@@ -37,9 +40,9 @@
     <dimen name="detail_rv_marginTopBottom">15dp</dimen>
     <dimen name="detail_item_marginBottom">10dp</dimen>
     <dimen name="detail_item_paddingTopBottom">10dp</dimen>
-    <dimen name="detail_item_textWidth">120dp</dimen>
+    <dimen name="detail_item_textWidth">150dp</dimen>
     <dimen name="detail_item_textSize">18dp</dimen>
-    <dimen name="detail_item_marginTop">20dp</dimen>
+    <dimen name="detail_item_marginTop">10dp</dimen>
     <dimen name="detail_item_textSizeSmall">12dp</dimen>
     <dimen name="detail_item_textMarginTop">2dp</dimen>
 

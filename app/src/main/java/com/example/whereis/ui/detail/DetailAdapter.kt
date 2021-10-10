@@ -32,7 +32,7 @@ class DetailAdapter : RecyclerView.Adapter<DetailAdapter.MainViewHolder>() {
         items.addAll(trackingDetail)
     }
 
-    inner class MainViewHolder(val binding: ItemRvDetailBinding) :
+    inner class MainViewHolder(private val binding: ItemRvDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(trackingDetail: TrackingDetail) {
             binding.detailData = trackingDetail

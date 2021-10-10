@@ -11,6 +11,7 @@
     </data>
 
     <LinearLayout
+        android:background="@drawable/round_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/detail_item_marginBottom"
@@ -38,13 +39,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{detailData.where}"
+                android:layout_marginTop="@dimen/detail_item_marginTop"
                 android:textSize="@dimen/detail_item_textSizeSmall"
                 tools:text="현재 위치" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detail_item_marginTop"
+                android:layout_marginTop="@dimen/detail_item_textMarginTop"
                 android:text="@{detailData.telno}"
                 android:textSize="@dimen/detail_item_textSizeSmall"
                 tools:text="전화 번호" />
@@ -52,8 +54,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/detail_item_textMarginTop"
                 android:text="@{detailData.timeString}"
+                android:layout_marginBottom="@dimen/detail_item_marginTop"
                 android:textSize="@dimen/detail_item_textSizeSmall"
                 tools:text="진행 시간" />
 

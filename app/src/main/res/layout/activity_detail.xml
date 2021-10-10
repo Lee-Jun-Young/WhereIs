@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="detail"
             type="com.example.whereis.ui.detail.DetailActivity" />
@@ -54,10 +55,11 @@
             android:paddingBottom="@dimen/detail_paddingTopBottom">
 
             <TextView
+                bind_level="@{data.level}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@{data.result}"
+                android:textColor="@color/black"
                 android:textSize="@dimen/detail_textSize"
                 tools:text="배송 완료" />
 
@@ -67,6 +69,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/detail_textBigMarginTop"
                 android:text="@{data.invoiceNo}"
+                android:textColor="@color/black"
                 tools:text="운송장 번호" />
 
             <TextView
@@ -75,6 +78,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/detail_textSmallMarginTop"
                 android:text="@{data.itemName}"
+                android:textColor="@color/black"
                 tools:text="아이템 이름" />
 
         </LinearLayout>

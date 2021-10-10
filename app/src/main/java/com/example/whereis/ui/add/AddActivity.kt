@@ -97,7 +97,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun trackingNumFormatChecked(trackingNum: String): Boolean {
-        val regex = "^[A-Z0-9_-]{9,22}$".toRegex()
+        val regex = """^[A-Z0-9_-]{9,22}$""".toRegex()
 
         return if (!trackingNum.matches(regex)) {
             Toast.makeText(this, "운송장 형식을 한번 더 확인해주세요.", Toast.LENGTH_SHORT).show()
