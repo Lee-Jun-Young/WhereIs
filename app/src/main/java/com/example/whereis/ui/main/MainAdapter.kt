@@ -35,7 +35,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     }
 
     fun getDataAt(position: Int): String{
-        return items.get(position).invoiceNo
+        return items[position].invoiceNo
     }
 
     inner class MainViewHolder(val binding: ItemTrackinginfoBinding) :

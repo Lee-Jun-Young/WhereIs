@@ -69,7 +69,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                                 } else {
                                     Toast.makeText(
                                         this,
-                                        "입력한 정보가 잘못되었습니다. 다시 입력해 주세요!!",
+                                        getString(R.string.add_btnAddToastText),
                                         Toast.LENGTH_LONG
                                     ).show()
                                 }
@@ -83,11 +83,11 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     private fun isEmptyChecked(num: String, selectCompany: Company): Boolean {
         return when {
             num == "" -> {
-                Toast.makeText(this, "운송장을 입력해 주세요!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.add_numToastText), Toast.LENGTH_SHORT).show()
                 false
             }
             selectCompany.Name == " " -> {
-                Toast.makeText(this, "택배사를 선택해 주세요!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.add_selectCompanyToastText), Toast.LENGTH_SHORT).show()
                 false
             }
             else -> {
@@ -100,7 +100,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         val regex = """^[A-Z0-9_-]{9,22}$""".toRegex()
 
         return if (!trackingNum.matches(regex)) {
-            Toast.makeText(this, "운송장 형식을 한번 더 확인해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.add_checkToastText), Toast.LENGTH_SHORT).show()
             false
         } else
             true
