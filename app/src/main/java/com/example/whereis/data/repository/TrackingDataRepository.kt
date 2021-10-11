@@ -19,6 +19,10 @@ class TrackingDataRepository(application: Application) {
         trackingDao.deleteData(trackingNum)
     }
 
+    fun getDetailData(trackingNum: String?): LiveData<TrackingData>{
+        return trackingDao.getDetailData(trackingNum)
+    }
+
     fun getAllData() : LiveData<List<TrackingData>>{
         return trackingDataList
     }

@@ -22,6 +22,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return infoRepository.getData(companyCode, trackingNum)
     }
 
+    fun getDetailData(trackingNum: String): LiveData<TrackingData>{
+        return repository.getDetailData(trackingNum)
+    }
+
     fun getAllData(): LiveData<List<TrackingData>> {
         return data
     }

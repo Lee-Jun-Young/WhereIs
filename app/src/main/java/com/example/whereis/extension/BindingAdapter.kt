@@ -7,7 +7,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("bind_level")
-    fun bindLevel(textView: TextView, level: String){
+    fun bindLevel(textView: TextView, level: String?){
         when (level) {
             "1" -> textView.text = "배송준비중"
             "2" -> textView.text = "집화완료"

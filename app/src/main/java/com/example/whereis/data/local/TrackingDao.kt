@@ -10,6 +10,9 @@ interface TrackingDao{
     @Query("SELECT * from tracking_data")
     fun getAll(): LiveData<List<TrackingData>>
 
+    @Query("SELECT * from tracking_data WHERE trackingNum = :trackingNum")
+    fun getDetailData(trackingNum: String?) : LiveData<TrackingData>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertData(trackingData: TrackingData)
 

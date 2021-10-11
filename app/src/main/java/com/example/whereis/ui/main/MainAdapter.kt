@@ -45,7 +45,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
             itemView.setOnClickListener {
                 Intent(itemView.context, DetailActivity::class.java).apply {
-                    putExtra("data", trackingInfo)
+                    putExtra("itemIdx",trackingInfo.invoiceNo)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { itemView.context.startActivity(this) }
             }

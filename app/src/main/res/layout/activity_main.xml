@@ -41,7 +41,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_marginEnd="@dimen/main_btnAddMargin"
                 android:layout_marginBottom="@dimen/main_btnAddMargin"
-                android:background="?attr/selectableItemBackground"
+                android:background="@null"
                 android:focusable="false"
                 android:onClick="@{main::onClick}"
                 android:scaleType="fitCenter"

@@ -7,14 +7,17 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.R
+import com.example.whereis.data.local.TrackingDao
+import com.example.whereis.data.local.TrackingDatabase
 import com.example.whereis.databinding.ActivityMainBinding
+import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 import com.example.whereis.ui.add.AddActivity
-
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
