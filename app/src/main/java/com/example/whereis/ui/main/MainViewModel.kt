@@ -1,11 +1,11 @@
 package com.example.whereis.ui.main
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.Dispatchers
@@ -16,23 +16,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TrackingDataRepository(application)
     private val infoRepository = TrackingInfoRepository(application)
 
-    private val data = repository.getAllData()
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
 
-    fun getTrackingData(companyCode: String, trackingNum: String): LiveData<TrackingInfo> {
-        return infoRepository.getData(companyCode, trackingNum)
-    }
+    private val _data = MutableLiveData<TrackingData>()
+    val data: LiveData<TrackingData> = _data
 
-    fun getDetailData(trackingNum: String): LiveData<TrackingData>{
-        return repository.getDetailData(trackingNum)
-    }
+    private val _info = MutableLiveData<TrackingInfo>()
+    val info: LiveData<TrackingInfo> = _info
 
-    fun getAllData(): LiveData<List<TrackingData>> {
-        return data
-    }
-
-    fun insertData(trackingData: TrackingData){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insertData(trackingData)
+    fun loadData() {
+        viewModelScope.launch {
+            val datas = repository.getAllData()
+            datas.forEach {
+                val result = infoRepository.getData(it.company_code, it.trackingNum)
+                if (result is MyResult.Success) {
+                    _info.value = result.data!!
+                } else {
+                    _error.value = (result as MyResult.Error).e.message
+                        ?: "예상치 못한 에러가 발생했습니다."
+                    result.e.printStackTrace()
+                }
+            }
         }
     }
 

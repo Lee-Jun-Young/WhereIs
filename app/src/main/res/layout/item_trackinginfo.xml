@@ -17,6 +17,7 @@
         android:orientation="horizontal"
         android:paddingStart="@dimen/main_item_paddingStartEnd"
         android:paddingTop="@dimen/main_item_paddingTopBottom"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_marginBottom="@dimen/main_marginBottom"
         android:paddingEnd="@dimen/main_item_paddingStartEnd"
         android:paddingBottom="@dimen/main_item_paddingTopBottom">

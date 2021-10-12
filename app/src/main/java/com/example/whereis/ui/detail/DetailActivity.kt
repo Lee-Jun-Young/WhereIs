@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.whereis.R
@@ -22,23 +23,23 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         dBinding.detail = this@DetailActivity
 
-        initView()
+        detailViewModel.loadData(intent.getStringExtra("itemIdx"))
+        initObservers()
     }
 
-    private fun initView(){
-        val itemIdx = intent.getStringExtra("itemIdx")
+    private fun initObservers(){
+        detailViewModel.error.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+        detailViewModel.info.observe(this) {
+            val data = it as TrackingInfo
+            val temp = data.trackingDetails
 
-        detailViewModel.getDetailData(itemIdx).observe(this,{
-            detailViewModel.getTrackingData(it.company_code, it.trackingNum).observe(this, {
-                val data = it as TrackingInfo
-                val temp = data.trackingDetails
-
-                dBinding.data = data
-                adapter = DetailAdapter()
-                dBinding.detailRecyclerview.adapter = adapter
-                adapter.setList(temp)
-            })
-        })
+            dBinding.data = data
+            adapter = DetailAdapter()
+            dBinding.detailRecyclerview.adapter = adapter
+            adapter.setList(temp)
+        }
     }
 
     override fun onClick(v: View?) {

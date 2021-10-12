@@ -29,6 +29,13 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
 
         selectCompany = Company(" ", " ")
 
+        addViewModel.inserted.observe(this) {
+            if (it)
+                finish()
+            else
+                Toast.makeText(this, "잘못된 정보입니다. 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+        }
+
         setCompanyChipGroup()
     }
 
@@ -61,19 +68,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                 if (isEmptyChecked(trackingNum, selectCompany)) {
                     if (trackingNumFormatChecked(trackingNum)) {
                         val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
-                        mainViewModel.getTrackingData(temp.company_code, trackingNum)
-                            .observe(this, {
-                                if (it.result == "Y") {
-                                    mainViewModel.insertData(temp)
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this,
-                                        getString(R.string.add_btnAddToastText),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                            })
+                        addViewModel.insertData(temp)
                     }
                 }
             }
@@ -83,11 +78,16 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     private fun isEmptyChecked(num: String, selectCompany: Company): Boolean {
         return when {
             num == "" -> {
-                Toast.makeText(this, getString(R.string.add_numToastText), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.add_numToastText), Toast.LENGTH_SHORT)
+                    .show()
                 false
             }
             selectCompany.Name == " " -> {
-                Toast.makeText(this, getString(R.string.add_selectCompanyToastText), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.add_selectCompanyToastText),
+                    Toast.LENGTH_SHORT
+                ).show()
                 false
             }
             else -> {
@@ -105,4 +105,5 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         } else
             true
     }
+
 }

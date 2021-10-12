@@ -9,7 +9,7 @@
     <dimen name="main_marginTop">20dp</dimen>
     <dimen name="main_marginBottom">10dp</dimen>
     <dimen name="main_btnAddSize">50sp</dimen>
-    <dimen name="main_btnAddMargin">20dp</dimen>
+    <dimen name="main_btnAddMargin">16dp</dimen>
     <dimen name="main_item_paddingStartEnd">15dp</dimen>
     <dimen name="main_item_paddingTopBottom">10dp</dimen>
     <dimen name="main_item_textMarginTop">5dp</dimen>

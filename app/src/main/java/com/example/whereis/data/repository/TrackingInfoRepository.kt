@@ -6,33 +6,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.whereis.data.remote.RetrofitBuilder
 import com.example.whereis.data.remote.api.TrackingInfoApi
+import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingInfo
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import com.example.whereis.model.TrackingResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.*
+import java.util.concurrent.ConcurrentMap
 
 class TrackingInfoRepository(application: Application) {
 
     private val retrofit: Retrofit = RetrofitBuilder().getInstance()
     private val api = retrofit.create(TrackingInfoApi::class.java)
 
-    fun getData(t_code: String, t_invoice: String): LiveData<TrackingInfo> {
-        val data = MutableLiveData<TrackingInfo>()
+    suspend fun getData(t_code: String, t_invoice: String) = withContext(Dispatchers.IO){
 
-        api.getTrackingInfo(t_code, t_invoice).enqueue(object : Callback<TrackingInfo> {
-            override fun onResponse(call: Call<TrackingInfo>, response: Response<TrackingInfo>) {
-                if (response.isSuccessful) {
-                    data.value = response.body()!!
-                    Log.d("Response", response.toString())
-                }
+        val response = api.getTrackingInfo(t_code, t_invoice)
+        return@withContext if (response.isSuccessful) {
+            val body = response.body()!!
+            if (body.isSuccessful()) {
+                MyResult.Success(body.toTrackingInfo())
+            } else {
+                MyResult.Error(Exception(body.toError().msg))
             }
-
-            override fun onFailure(call: Call<TrackingInfo>, t: Throwable) {
-                t.stackTrace
-            }
-        })
-        return data
+        } else {
+            MyResult.Error(HttpException(response))
+        }
     }
 
 }

@@ -8,10 +8,10 @@ import com.example.whereis.model.TrackingData
 interface TrackingDao{
 
     @Query("SELECT * from tracking_data")
-    fun getAll(): LiveData<List<TrackingData>>
+    suspend fun getAll(): List<TrackingData>
 
     @Query("SELECT * from tracking_data WHERE trackingNum = :trackingNum")
-    fun getDetailData(trackingNum: String?) : LiveData<TrackingData>
+    suspend fun getDetailData(trackingNum: String?) : TrackingData
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertData(trackingData: TrackingData)

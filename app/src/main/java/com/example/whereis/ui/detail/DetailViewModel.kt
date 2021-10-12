@@ -3,21 +3,42 @@ package com.example.whereis.ui.detail
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
+import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = TrackingDataRepository(application)
     private val infoRepository = TrackingInfoRepository(application)
 
-    fun getTrackingData(companyCode: String, trackingNum: String): LiveData<TrackingInfo> {
-        return infoRepository.getData(companyCode, trackingNum)
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
+    private val _data = MutableLiveData<TrackingData>()
+    val data: LiveData<TrackingData> = _data
+
+    private val _info = MutableLiveData<TrackingInfo>()
+    val info: LiveData<TrackingInfo> = _info
+
+    fun loadData(trackingNum: String?) {
+        viewModelScope.launch {
+            val data = repository.getDetailData(trackingNum)
+
+            val result = infoRepository.getData(data.company_code, data.trackingNum)
+            if (result is MyResult.Success) {
+                _info.value = result.data!!
+            } else {
+                _error.value = (result as MyResult.Error).e.message
+                    ?: "예상치 못한 에러가 발생했습니다."
+                result.e.printStackTrace()
+            }
+        }
     }
 
-    fun getDetailData(trackingNum: String?): LiveData<TrackingData> {
-        return repository.getDetailData(trackingNum)
-    }
 }

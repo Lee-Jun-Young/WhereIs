@@ -7,7 +7,6 @@
         <variable
             name="main"
             type="com.example.whereis.ui.main.MainActivity" />
-
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
@@ -16,39 +15,54 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainActivity">
 
-        <include
-            android:id="@+id/ToolBar"
-            layout="@layout/toolbar"
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize" />
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="8dp"
+            app:contentInsetStart="0dp">
 
-        <FrameLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/toolbar_textSize"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_recyclerview"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_marginTop"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/btn_moveAddActivity"
-                android:layout_width="@dimen/main_btnAddSize"
-                android:layout_height="@dimen/main_btnAddSize"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="@dimen/main_btnAddMargin"
-                android:layout_marginBottom="@dimen/main_btnAddMargin"
-                android:background="@null"
-                android:focusable="false"
-                android:onClick="@{main::onClick}"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_main_add"
-                android:stateListAnimator="@null" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/main_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/main_marginTop"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        </FrameLayout>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_moveAddActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="@dimen/main_btnAddMargin"
+                    android:layout_marginBottom="@dimen/main_btnAddMargin"
+                    android:backgroundTint="@color/black"
+                    android:onClick="@{main::onClick}"
+                    android:src="@drawable/ic_baseline_add_24" />
+
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </layout>

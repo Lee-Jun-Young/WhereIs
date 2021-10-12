@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/detail_textSmallMarginTop"
-                android:text="@{data.itemName}"
+                android:text="@{data.invoiceNo}"
                 android:textColor="@color/black"
                 tools:text="아이템 이름" />
 
