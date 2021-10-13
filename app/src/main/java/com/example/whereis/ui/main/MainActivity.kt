@@ -30,12 +30,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mainViewModel.loadData()
         initObservers()
         initRecyclerview()
-
-        mBinding.refreshLayout.setOnRefreshListener {
-            datas.clear()
-            mainViewModel.loadData()
-            mBinding.refreshLayout.isRefreshing = false
-        }
+        initView()
 
     }
 
@@ -47,6 +42,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mainViewModel.info.observe(this) {
             datas.add(it)
             adapter.setList(datas)
+        }
+    }
+
+    private fun initView(){
+        mBinding.refreshLayout.setOnRefreshListener {
+            datas.clear()
+            mainViewModel.loadData()
+            mBinding.refreshLayout.isRefreshing = false
         }
     }
 
@@ -76,6 +79,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         adapter = MainAdapter()
         mBinding.mainRecyclerview.adapter = adapter
+
     }
 
     override fun onClick(v: View?) {

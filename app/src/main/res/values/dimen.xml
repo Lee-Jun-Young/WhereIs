@@ -28,6 +28,7 @@
     <dimen name="add_editTextWidth">200dp</dimen>
     <dimen name="add_marginStart">10dp</dimen>
     <dimen name="add_textMarginTop">10dp</dimen>
+    <dimen name="add_toolBar_padding">14dp</dimen>
 
     <!-- Detail -->
     <dimen name="detail_marginStartEnd">20dp</dimen>

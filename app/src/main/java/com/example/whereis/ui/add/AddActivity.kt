@@ -2,7 +2,10 @@ package com.example.whereis.ui.add
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +31,22 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         aBinding.add = this@AddActivity
 
         selectCompany = Company(" ", " ")
+
+        aBinding.etTrackingNumber.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    val trackingNum = aBinding.etTrackingNumber.text.toString()
+                    if (isEmptyChecked(trackingNum, selectCompany)) {
+                        if (trackingNumFormatChecked(trackingNum)) {
+                            val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
+                            addViewModel.insertData(temp)
+                        }
+                    }
+                }
+                return false
+            }
+
+        })
 
         addViewModel.inserted.observe(this) {
             if (it)
@@ -62,15 +81,6 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.iv_back -> {
                 finish()
-            }
-            R.id.btn_addInfo -> {
-                val trackingNum = aBinding.etTrackingNumber.text.toString()
-                if (isEmptyChecked(trackingNum, selectCompany)) {
-                    if (trackingNumFormatChecked(trackingNum)) {
-                        val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
-                        addViewModel.insertData(temp)
-                    }
-                }
             }
         }
     }
