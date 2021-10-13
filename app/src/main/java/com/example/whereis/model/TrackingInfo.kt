@@ -6,7 +6,7 @@ import java.io.Serializable
 data class TrackingResponse(
     @SerializedName("TrackingInfo")
     val complete: String?,
-    val estimate: String,
+    val estimate: String?,
     val invoiceNo: String,
     val itemName: String,
     val level: String,
@@ -49,7 +49,7 @@ data class TrackingResponse(
 data class TrackingInfo(
     @SerializedName("TrackingInfo")
     val complete: String?,
-    val estimate: String,
+    val estimate: String?,
     val invoiceNo: String,
     val itemName: String,
     val level: String,

@@ -21,7 +21,6 @@ import com.google.android.material.chip.Chip
 class AddActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var aBinding: ActivityAddBinding
     private val addViewModel: AddViewModel by viewModels()
-    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var selectCompany: Company
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,22 +31,6 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
 
         selectCompany = Company(" ", " ")
 
-        aBinding.etTrackingNumber.setOnEditorActionListener(object : TextView.OnEditorActionListener{
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    val trackingNum = aBinding.etTrackingNumber.text.toString()
-                    if (isEmptyChecked(trackingNum, selectCompany)) {
-                        if (trackingNumFormatChecked(trackingNum)) {
-                            val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
-                            addViewModel.insertData(temp)
-                        }
-                    }
-                }
-                return false
-            }
-
-        })
-
         addViewModel.inserted.observe(this) {
             if (it)
                 finish()
@@ -55,7 +38,23 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "잘못된 정보입니다. 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
 
+        initEditTextAdd()
         setCompanyChipGroup()
+    }
+
+    private fun initEditTextAdd(){
+        aBinding.etTrackingNumber.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val trackingNum = aBinding.etTrackingNumber.text.toString()
+                if (isEmptyChecked(trackingNum, selectCompany)) {
+                    if (trackingNumFormatChecked(trackingNum)) {
+                        val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
+                        addViewModel.insertData(temp)
+                    }
+                }
+            }
+            false
+        }
     }
 
     private fun setCompanyChipGroup() {

@@ -34,6 +34,7 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = infoRepository.getData(trackingData.company_code, trackingData.trackingNum)
             if (result is MyResult.Success) {
+                Log.d("test!!",result.toString())
                 trackingRepository.insertData(trackingData)
                 _inserted.postValue(true)
             }else{

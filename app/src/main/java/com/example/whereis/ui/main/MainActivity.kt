@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
+        mainViewModel.data.observe(this){
+            datas.clear()
+        }
+
         mainViewModel.info.observe(this) {
             datas.add(it)
             adapter.setList(datas)
