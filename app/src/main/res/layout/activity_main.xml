@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="DISCONNECTED"
+                android:text="@string/main_disconnectView_mainText"
                 android:textAllCaps="true"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="24sp"
@@ -100,7 +100,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="40dp"
                 android:gravity="center"
-                android:text="인터넷에 연결되어 있지 않습니다"
+                android:text="@string/main_disconnectView_subText"
                 android:textSize="18sp" />
 
             <Button
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_reconnect"
                 android:onClick="@{main::onClick}"
-                android:text="재연결"/>
+                android:text="@string/main_disconnectView_btnText"/>
 
         </LinearLayout>
     </FrameLayout>

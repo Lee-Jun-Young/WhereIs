@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mBinding.main = this@MainActivity
 
         if (NetworkConnection().checkForInternet(this)) {
+            datas.clear()
             mainViewModel.loadData()
             initView()
             initObservers()
@@ -40,11 +41,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onRestart() {
+        super.onRestart()
         isReconnected()
     }
-
 
     private fun initObservers() {
         mainViewModel.error.observe(this) {

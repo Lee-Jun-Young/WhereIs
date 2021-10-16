@@ -40,7 +40,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initEditTextAdd(){
-        aBinding.etTrackingNumber.setOnEditorActionListener { v, actionId, event ->
+        aBinding.etTrackingNumber.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (NetworkConnection().checkForInternet(this)) {
                     val trackingNum = aBinding.etTrackingNumber.text.toString()

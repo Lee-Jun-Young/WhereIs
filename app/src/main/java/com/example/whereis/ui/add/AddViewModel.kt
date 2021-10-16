@@ -13,7 +13,6 @@ import com.example.whereis.model.Company
 import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.DisposableHandle
 import kotlinx.coroutines.launch
 
 class AddViewModel(application: Application) : AndroidViewModel(application) {

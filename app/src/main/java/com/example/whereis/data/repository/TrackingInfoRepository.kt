@@ -1,18 +1,12 @@
 package com.example.whereis.data.repository
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.whereis.data.remote.RetrofitBuilder
 import com.example.whereis.data.remote.api.TrackingInfoApi
 import com.example.whereis.model.MyResult
-import com.example.whereis.model.TrackingInfo
-import com.example.whereis.model.TrackingResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.*
-import java.util.concurrent.ConcurrentMap
 
 class TrackingInfoRepository(application: Application) {
 

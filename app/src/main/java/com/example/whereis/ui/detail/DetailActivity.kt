@@ -2,14 +2,12 @@ package com.example.whereis.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityDetailBinding
-import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {

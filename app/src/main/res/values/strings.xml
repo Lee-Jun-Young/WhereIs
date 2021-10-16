@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">WhereIs</string>
 
+    <!-- Main -->
+    <string name="main_disconnectView_mainText">DISCONNECTED</string>
+    <string name="main_disconnectView_subText">인터넷에 연결되어 있지 않습니다</string>
+    <string name="main_disconnectView_btnText">재연결</string>
     <!-- Add -->
     <string name="add_btnAddInfoText">저장</string>
     <string name="add_trackingNumText">운송장 번호를 입력해주세요.</string>

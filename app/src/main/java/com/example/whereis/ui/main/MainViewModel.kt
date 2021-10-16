@@ -1,7 +1,6 @@
 package com.example.whereis.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.data.repository.TrackingInfoRepository
@@ -32,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             datas.forEach {
                 val result = infoRepository.getData(it.company_code, it.trackingNum)
                 if (result is MyResult.Success) {
-                    _info.value = result.data!!
+                    _info.value = result.data
                 } else {
                     _error.value = (result as MyResult.Error).e.message
                         ?: "예상치 못한 에러가 발생했습니다."
