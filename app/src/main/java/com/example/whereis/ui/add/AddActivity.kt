@@ -1,11 +1,8 @@
 package com.example.whereis.ui.add
 
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.whereis.R
 import com.example.whereis.databinding.ActivityAddBinding
+import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.Company
 import com.example.whereis.model.TrackingData
-import com.example.whereis.ui.main.MainViewModel
 import com.google.android.material.chip.Chip
 
 class AddActivity : AppCompatActivity(), View.OnClickListener {
@@ -45,12 +42,17 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
     private fun initEditTextAdd(){
         aBinding.etTrackingNumber.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val trackingNum = aBinding.etTrackingNumber.text.toString()
-                if (isEmptyChecked(trackingNum, selectCompany)) {
-                    if (trackingNumFormatChecked(trackingNum)) {
-                        val temp = TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
-                        addViewModel.insertData(temp)
+                if (NetworkConnection().checkForInternet(this)) {
+                    val trackingNum = aBinding.etTrackingNumber.text.toString()
+                    if (isEmptyChecked(trackingNum, selectCompany)) {
+                        if (trackingNumFormatChecked(trackingNum)) {
+                            val temp =
+                                TrackingData(trackingNum, selectCompany.Name, selectCompany.Code)
+                            addViewModel.insertData(temp)
+                        }
                     }
+                }else{
+                    finish()
                 }
             }
             false

@@ -1,7 +1,6 @@
 package com.example.whereis.ui.main
 
 import android.app.Application
-import android.media.MediaParser
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.whereis.data.repository.TrackingDataRepository
@@ -30,7 +29,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val datas = repository.getAllData()
             _data.value = datas
-
             datas.forEach {
                 val result = infoRepository.getData(it.company_code, it.trackingNum)
                 if (result is MyResult.Success) {
@@ -44,7 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteData(trackingNum: String) {
+    fun deleteData(trackingNum: String){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteData(trackingNum)
             loadData()

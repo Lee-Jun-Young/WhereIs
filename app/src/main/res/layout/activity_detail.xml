@@ -14,85 +14,91 @@
             type="com.example.whereis.model.TrackingInfo" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.detail.DetailActivity">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/life_toolbar"
+        <LinearLayout
+            android:id="@+id/connectView"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="@dimen/toolbar_elevation">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.detail.DetailActivity">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/life_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="@dimen/toolbar_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:onClick="@{detail::onClick}"
+                        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal">
+                android:layout_marginStart="@dimen/detail_marginStartEnd"
+                android:layout_marginEnd="@dimen/detail_marginStartEnd"
+                android:layout_marginBottom="@dimen/detail_marginBottom"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/detail_paddingTopBottom"
+                android:paddingBottom="@dimen/detail_paddingTopBottom">
 
-                <ImageView
-                    android:id="@+id/iv_back"
+                <TextView
+                    bind_level="@{data.level}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="@{detail::onClick}"
-                    android:src="@drawable/ic_baseline_arrow_back_24" />
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/detail_textSize"
+                    tools:text="배송 완료" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/detail_textSmallMarginTop"
+                    android:text="@{data.invoiceNo}"
+                    android:textColor="@color/black"
+                    tools:text="아이템 이름" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/detail_textSmallMarginTop"
+                    android:text="@{data.itemName}"
+                    android:textColor="@color/black"
+                    tools:text="아이템 이름" />
 
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detail_marginStartEnd"
-            android:layout_marginEnd="@dimen/detail_marginStartEnd"
-            android:layout_marginBottom="@dimen/detail_marginBottom"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/detail_paddingTopBottom"
-            android:paddingBottom="@dimen/detail_paddingTopBottom">
-
-            <TextView
-                bind_level="@{data.level}"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_recyclerview"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="@dimen/detail_textSize"
-                tools:text="배송 완료" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/detail_textSmallMarginTop"
-                android:text="@{data.invoiceNo}"
-                android:textColor="@color/black"
-                tools:text="아이템 이름" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/detail_textSmallMarginTop"
-                android:text="@{data.itemName}"
-                android:textColor="@color/black"
-                tools:text="아이템 이름" />
+                android:layout_marginStart="@dimen/detail_rv_marginStartEnd"
+                android:layout_marginTop="@dimen/detail_rv_marginTopBottom"
+                android:layout_marginEnd="@dimen/detail_rv_marginStartEnd"
+                android:layout_marginBottom="@dimen/detail_rv_marginTopBottom"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detail_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/detail_rv_marginStartEnd"
-            android:layout_marginTop="@dimen/detail_rv_marginTopBottom"
-            android:layout_marginEnd="@dimen/detail_rv_marginStartEnd"
-            android:layout_marginBottom="@dimen/detail_rv_marginTopBottom"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
+    </FrameLayout>
 </layout>
