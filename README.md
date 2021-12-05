@@ -17,4 +17,4 @@
 
 ## Tech
 
-`Android` `Kotlin` `MVVM` `ViewModel` `LiveData` `Coroutin` `DataBinding` `RepositoryPattern` `Retrofit2` `Android-KTX`
+`Android` `Kotlin` `MVVM` `ViewModel` `LiveData` `Coroutine` `DataBinding` `RepositoryPattern` `Retrofit2` `Android-KTX`
