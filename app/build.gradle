@@ -14,7 +14,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "t_KEY", t_KEY)
+
+        buildConfigField "String", "t_KEY", '"jr9UL2Z1sgazYkzarbUibw"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
