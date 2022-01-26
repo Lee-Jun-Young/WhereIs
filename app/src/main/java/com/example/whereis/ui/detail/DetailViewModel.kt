@@ -1,10 +1,7 @@
 package com.example.whereis.ui.detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.data.repository.TrackingInfoRepository
 import com.example.whereis.model.MyResult
@@ -12,10 +9,10 @@ import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.launch
 
-class DetailViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = TrackingDataRepository(application)
-    private val infoRepository = TrackingInfoRepository(application)
+class DetailViewModel(
+    private val trackingDataRepository: TrackingDataRepository,
+    private val trackingInfoRepository: TrackingInfoRepository
+) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -28,9 +25,9 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadData(trackingNum: String?) {
         viewModelScope.launch {
-            val data = repository.getDetailData(trackingNum)
+            val data = trackingDataRepository.getDetailData(trackingNum)
 
-            val result = infoRepository.getData(data.company_code, data.trackingNum)
+            val result = trackingInfoRepository.getData(data.company_code, data.trackingNum)
             if (result is MyResult.Success) {
                 _info.value = result.data!!
             } else {

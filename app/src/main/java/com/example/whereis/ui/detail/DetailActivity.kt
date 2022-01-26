@@ -6,20 +6,29 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
+import com.example.whereis.data.repository.CompanyRepository
+import com.example.whereis.data.repository.TrackingDataRepository
+import com.example.whereis.data.repository.TrackingInfoRepository
 import com.example.whereis.databinding.ActivityDetailBinding
 import com.example.whereis.model.TrackingInfo
+import com.example.whereis.ui.add.AddViewModel
+import com.example.whereis.ui.add.AddViewModelFactory
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
     private lateinit var adapter: DetailAdapter
-    private val detailViewModel: DetailViewModel by viewModels()
+    lateinit var detailViewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         dBinding.detail = this@DetailActivity
+
+        detailViewModel = ViewModelProvider(this, DetailViewModelFactory(TrackingDataRepository(application), TrackingInfoRepository()))
+            .get(DetailViewModel::class.java)
 
         detailViewModel.loadData(intent.getStringExtra("itemIdx"))
         initObservers()

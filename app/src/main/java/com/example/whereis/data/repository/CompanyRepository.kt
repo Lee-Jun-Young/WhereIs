@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class CompanyRepository(application: Application) {
+class CompanyRepository() {
 
     private val retrofit: Retrofit = RetrofitBuilder().getInstance()
     private val api = retrofit.create(CompanyApi::class.java)

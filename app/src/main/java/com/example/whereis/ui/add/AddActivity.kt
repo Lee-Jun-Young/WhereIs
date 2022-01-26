@@ -8,7 +8,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
+import com.example.whereis.data.repository.CompanyRepository
+import com.example.whereis.data.repository.TrackingDataRepository
+import com.example.whereis.data.repository.TrackingInfoRepository
 import com.example.whereis.databinding.ActivityAddBinding
 import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.Company
@@ -17,7 +21,7 @@ import com.google.android.material.chip.Chip
 
 class AddActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var aBinding: ActivityAddBinding
-    private val addViewModel: AddViewModel by viewModels()
+    lateinit var addViewModel: AddViewModel
     private lateinit var selectCompany: Company
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +31,9 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         aBinding.add = this@AddActivity
 
         selectCompany = Company(" ", " ")
+
+        addViewModel = ViewModelProvider(this, AddViewModelFactory(CompanyRepository(), TrackingDataRepository(application), TrackingInfoRepository()))
+            .get(AddViewModel::class.java)
 
         addViewModel.inserted.observe(this) {
             if (it)
@@ -39,7 +46,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
         setCompanyChipGroup()
     }
 
-    private fun initEditTextAdd(){
+    private fun initEditTextAdd() {
         aBinding.etTrackingNumber.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (NetworkConnection().checkForInternet(this)) {
@@ -51,7 +58,7 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
                             addViewModel.insertData(temp)
                         }
                     }
-                }else{
+                } else {
                     finish()
                 }
             }

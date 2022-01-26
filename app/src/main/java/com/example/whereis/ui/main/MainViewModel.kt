@@ -10,10 +10,10 @@ import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = TrackingDataRepository(application)
-    private val infoRepository = TrackingInfoRepository(application)
+class MainViewModel(
+    private val trackingDataRepository: TrackingDataRepository,
+    private val trackingInfoRepository: TrackingInfoRepository
+) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -26,12 +26,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadData() {
         viewModelScope.launch {
-            val datas = repository.getAllData()
+            val datas = trackingDataRepository.getAllData()
             _data.value = datas
             datas.forEach {
-                val result = infoRepository.getData(it.company_code, it.trackingNum)
+                val result = trackingInfoRepository.getData(it.company_code, it.trackingNum)
                 if (result is MyResult.Success) {
-                    _info.value = result.data
+                    _info.value = result.data!!
                 } else {
                     _error.value = (result as MyResult.Error).e.message
                         ?: "예상치 못한 에러가 발생했습니다."
@@ -41,9 +41,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteData(trackingNum: String){
+    fun deleteData(trackingNum: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteData(trackingNum)
+            trackingDataRepository.deleteData(trackingNum)
             loadData()
         }
     }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.*
 
-class TrackingInfoRepository(application: Application) {
+class TrackingInfoRepository {
 
     private val retrofit: Retrofit = RetrofitBuilder().getInstance()
     private val api = retrofit.create(TrackingInfoApi::class.java)
