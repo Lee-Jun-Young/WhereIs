@@ -2,12 +2,12 @@ package com.example.whereis.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.whereis.data.repository.TrackingDataRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.data.repository.TrackingDataRepositoryImpl
+import com.example.whereis.data.repository.TrackingInfoRepositoryImpl
 
 class MainViewModelFactory(
-    private val trackingDataRepository: TrackingDataRepository,
-    private val trackingInfoRepository: TrackingInfoRepository
+    private val trackingDataRepository: TrackingDataRepositoryImpl,
+    private val trackingInfoRepository: TrackingInfoRepositoryImpl
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {

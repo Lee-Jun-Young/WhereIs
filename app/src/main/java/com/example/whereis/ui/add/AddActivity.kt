@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
-import com.example.whereis.data.repository.CompanyRepository
-import com.example.whereis.data.repository.TrackingDataRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.data.repository.*
 import com.example.whereis.databinding.ActivityAddBinding
 import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.Company
@@ -32,7 +29,14 @@ class AddActivity : AppCompatActivity(), View.OnClickListener {
 
         selectCompany = Company(" ", " ")
 
-        addViewModel = ViewModelProvider(this, AddViewModelFactory(CompanyRepository(), TrackingDataRepository(application), TrackingInfoRepository()))
+        addViewModel = ViewModelProvider(
+            this,
+            AddViewModelFactory(
+                CompanyRepositoryImpl(),
+                TrackingDataRepositoryImpl(application),
+                TrackingInfoRepositoryImpl()
+            )
+        )
             .get(AddViewModel::class.java)
 
         addViewModel.inserted.observe(this) {

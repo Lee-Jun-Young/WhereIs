@@ -4,21 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whereis.R
-import com.example.whereis.data.repository.TrackingDataRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.data.repository.TrackingDataRepositoryImpl
+import com.example.whereis.data.repository.TrackingInfoRepositoryImpl
 import com.example.whereis.databinding.ActivityMainBinding
 import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.TrackingInfo
 import com.example.whereis.ui.add.AddActivity
-import com.example.whereis.ui.detail.DetailViewModel
-import com.example.whereis.ui.detail.DetailViewModelFactory
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityMainBinding
@@ -28,7 +25,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = ViewModelProvider(this, MainViewModelFactory(TrackingDataRepository(application), TrackingInfoRepository()))
+        mainViewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(
+                TrackingDataRepositoryImpl(application),
+                TrackingInfoRepositoryImpl()
+            )
+        )
             .get(MainViewModel::class.java)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun isReconnected(){
+    private fun isReconnected() {
         if (NetworkConnection().checkForInternet(this)) {
             datas.clear()
             mainViewModel.loadData()

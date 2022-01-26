@@ -1,20 +1,15 @@
 package com.example.whereis.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.whereis.R
-import com.example.whereis.data.repository.CompanyRepository
-import com.example.whereis.data.repository.TrackingDataRepository
-import com.example.whereis.data.repository.TrackingInfoRepository
+import com.example.whereis.data.repository.*
 import com.example.whereis.databinding.ActivityDetailBinding
 import com.example.whereis.model.TrackingInfo
-import com.example.whereis.ui.add.AddViewModel
-import com.example.whereis.ui.add.AddViewModelFactory
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
@@ -27,14 +22,20 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         dBinding.detail = this@DetailActivity
 
-        detailViewModel = ViewModelProvider(this, DetailViewModelFactory(TrackingDataRepository(application), TrackingInfoRepository()))
+        detailViewModel = ViewModelProvider(
+            this,
+            DetailViewModelFactory(
+                TrackingDataRepositoryImpl(application),
+                TrackingInfoRepositoryImpl()
+            )
+        )
             .get(DetailViewModel::class.java)
 
         detailViewModel.loadData(intent.getStringExtra("itemIdx"))
         initObservers()
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         detailViewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }

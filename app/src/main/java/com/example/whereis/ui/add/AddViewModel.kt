@@ -1,8 +1,10 @@
 package com.example.whereis.ui.add
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.whereis.data.repository.CompanyRepository
 import com.example.whereis.data.repository.TrackingDataRepository
 import com.example.whereis.data.repository.TrackingInfoRepository
