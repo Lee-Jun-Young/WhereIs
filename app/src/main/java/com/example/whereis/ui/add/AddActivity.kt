@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.example.whereis.MyApplication
 import com.example.whereis.R
 import com.example.whereis.data.repository.*
 import com.example.whereis.databinding.ActivityAddBinding
@@ -15,29 +15,24 @@ import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.Company
 import com.example.whereis.model.TrackingData
 import com.google.android.material.chip.Chip
+import javax.inject.Inject
 
 class AddActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var aBinding: ActivityAddBinding
+    @Inject
     lateinit var addViewModel: AddViewModel
+    private lateinit var aBinding: ActivityAddBinding
     private lateinit var selectCompany: Company
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
 
         aBinding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         aBinding.add = this@AddActivity
 
         selectCompany = Company(" ", " ")
-
-        addViewModel = ViewModelProvider(
-            this,
-            AddViewModelFactory(
-                CompanyRepositoryImpl(),
-                TrackingDataRepositoryImpl(application),
-                TrackingInfoRepositoryImpl()
-            )
-        )
-            .get(AddViewModel::class.java)
 
         addViewModel.inserted.observe(this) {
             if (it)

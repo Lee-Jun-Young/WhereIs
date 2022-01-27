@@ -5,16 +5,13 @@ import com.example.whereis.model.MyResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import retrofit2.Retrofit
+import javax.inject.Inject
 
-class RemoteTrackingInfoDataSourceImpl(): RemoteTrackingInfoDataSource {
-
-    private val retrofit: Retrofit = RetrofitBuilder().getInstance()
-    private val api = retrofit.create(TrackingInfoApi::class.java)
+class RemoteTrackingInfoDataSourceImpl @Inject constructor(private val trackingInfoApi: TrackingInfoApi): RemoteTrackingInfoDataSource {
 
     override suspend fun getData(t_code: String, t_invoice: String) = withContext(Dispatchers.IO) {
 
-        val response = api.getTrackingInfo(t_code, t_invoice)
+        val response = trackingInfoApi.getTrackingInfo(t_code, t_invoice)
         return@withContext if (response.isSuccessful) {
             val body = response.body()!!
             if (body.isSuccessful()) {

@@ -6,33 +6,28 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.whereis.MyApplication
 import com.example.whereis.R
-import com.example.whereis.data.repository.TrackingDataRepositoryImpl
-import com.example.whereis.data.repository.TrackingInfoRepositoryImpl
 import com.example.whereis.databinding.ActivityMainBinding
 import com.example.whereis.extension.NetworkConnection
 import com.example.whereis.model.TrackingInfo
 import com.example.whereis.ui.add.AddActivity
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var mBinding: ActivityMainBinding
+    @Inject
     lateinit var mainViewModel: MainViewModel
+    private lateinit var mBinding: ActivityMainBinding
     private lateinit var adapter: MainAdapter
     private val datas: MutableList<TrackingInfo> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
-        mainViewModel = ViewModelProvider(
-            this,
-            MainViewModelFactory(
-                TrackingDataRepositoryImpl(application),
-                TrackingInfoRepositoryImpl()
-            )
-        )
-            .get(MainViewModel::class.java)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.main = this@MainActivity

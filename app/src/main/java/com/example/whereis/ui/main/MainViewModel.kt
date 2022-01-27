@@ -11,8 +11,9 @@ import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val trackingDataRepository: TrackingDataRepository,
     private val trackingInfoRepository: TrackingInfoRepository
 ) : ViewModel() {

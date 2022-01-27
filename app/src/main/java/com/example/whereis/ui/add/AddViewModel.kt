@@ -13,8 +13,9 @@ import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddViewModel(
+class AddViewModel @Inject constructor(
     private val companyRepository: CompanyRepository,
     private val trackingDataRepository: TrackingDataRepository,
     private val trackingInfoRepository: TrackingInfoRepository

@@ -10,8 +10,9 @@ import com.example.whereis.model.MyResult
 import com.example.whereis.model.TrackingData
 import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(
+class DetailViewModel @Inject constructor(
     private val trackingDataRepository: TrackingDataRepository,
     private val trackingInfoRepository: TrackingInfoRepository
 ) : ViewModel() {

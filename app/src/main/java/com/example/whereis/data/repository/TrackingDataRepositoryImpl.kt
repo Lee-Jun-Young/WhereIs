@@ -1,18 +1,18 @@
 package com.example.whereis.data.repository
 
-import android.app.Application
+import android.content.Context
 import com.example.whereis.data.local.LocalTrackingDataSourceImpl
-import com.example.whereis.data.local.TrackingDao
-import com.example.whereis.data.local.TrackingDatabase
 import com.example.whereis.model.TrackingData
+import javax.inject.Inject
 
-class TrackingDataRepositoryImpl(application: Application) : TrackingDataRepository {
+class TrackingDataRepositoryImpl @Inject constructor(context: Context) :
+    TrackingDataRepository {
 
-    private val localTrackingDataSource = LocalTrackingDataSourceImpl(application)
+    private val localTrackingDataSource = LocalTrackingDataSourceImpl(context)
 
     override fun insertData(trackingData: TrackingData) =
         localTrackingDataSource.insertData(trackingData)
-    
+
     override fun deleteData(trackingNum: String) =
         localTrackingDataSource.deleteData(trackingNum)
 

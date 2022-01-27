@@ -8,17 +8,15 @@ import com.example.whereis.model.CompanyList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
+import javax.inject.Inject
 
-class RemoteCompanyDataSourceImpl() : RemoteCompanyDataSource {
-
-    private val retrofit: Retrofit = RetrofitBuilder().getInstance()
-    private val api = retrofit.create(CompanyApi::class.java)
+class RemoteCompanyDataSourceImpl @Inject constructor(private val companyApi: CompanyApi) :
+    RemoteCompanyDataSource {
 
     override fun getCompany(): LiveData<List<Company>> {
         val data = MutableLiveData<List<Company>>()
 
-        api.getGithubInfo().enqueue(object : Callback<CompanyList> {
+        companyApi.getGithubInfo().enqueue(object : Callback<CompanyList> {
             override fun onResponse(call: Call<CompanyList>, response: Response<CompanyList>) {
                 data.value = response.body()!!.companies
             }

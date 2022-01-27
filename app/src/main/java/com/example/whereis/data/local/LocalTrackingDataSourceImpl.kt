@@ -1,11 +1,11 @@
 package com.example.whereis.data.local
 
-import android.app.Application
+import android.content.Context
 import com.example.whereis.model.TrackingData
 
-class LocalTrackingDataSourceImpl(application: Application): LocalTrackingDataSource {
+class LocalTrackingDataSourceImpl(context: Context): LocalTrackingDataSource {
 
-    private val trackingDao: TrackingDao = TrackingDatabase.getDatabase(application)!!.trackingDao()
+    private val trackingDao: TrackingDao = TrackingDatabase.getDatabase(context)!!.trackingDao()
 
     override fun insertData(trackingData: TrackingData) {
         trackingDao.insertData(trackingData)
@@ -22,6 +22,5 @@ class LocalTrackingDataSourceImpl(application: Application): LocalTrackingDataSo
     override suspend fun getAllData(): List<TrackingData> {
         return trackingDao.getAll()
     }
-
 
 }
