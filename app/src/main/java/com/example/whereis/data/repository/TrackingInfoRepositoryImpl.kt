@@ -1,8 +1,13 @@
 package com.example.whereis.data.repository
 
+import androidx.lifecycle.LiveData
+import com.example.whereis.data.remote.RemoteCompanyDataSourceImpl
+import com.example.whereis.data.remote.RemoteTrackingInfoDataSourceImpl
 import com.example.whereis.data.remote.RetrofitBuilder
 import com.example.whereis.data.remote.api.TrackingInfoApi
+import com.example.whereis.model.Company
 import com.example.whereis.model.MyResult
+import com.example.whereis.model.TrackingInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -10,22 +15,9 @@ import retrofit2.Retrofit
 
 class TrackingInfoRepositoryImpl : TrackingInfoRepository {
 
-    private val retrofit: Retrofit = RetrofitBuilder().getInstance()
-    private val api = retrofit.create(TrackingInfoApi::class.java)
+    private val remoteTrackingInfoDataSource = RemoteTrackingInfoDataSourceImpl()
 
-    override suspend fun getData(t_code: String, t_invoice: String) = withContext(Dispatchers.IO) {
-
-        val response = api.getTrackingInfo(t_code, t_invoice)
-        return@withContext if (response.isSuccessful) {
-            val body = response.body()!!
-            if (body.isSuccessful()) {
-                MyResult.Success(body.toTrackingInfo())
-            } else {
-                MyResult.Error(Exception(body.toError().msg))
-            }
-        } else {
-            MyResult.Error(HttpException(response))
-        }
-    }
+    override suspend fun getData(t_code: String, t_invoice: String): MyResult<TrackingInfo> =
+        remoteTrackingInfoDataSource.getData(t_code, t_invoice)
 
 }
