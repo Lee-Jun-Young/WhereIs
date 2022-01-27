@@ -1,5 +1,6 @@
 package com.example.whereis.di
 
+import com.example.whereis.BuildConfig
 import com.example.whereis.data.remote.api.CompanyApi
 import com.example.whereis.data.remote.api.TrackingInfoApi
 import dagger.Module
@@ -21,7 +22,7 @@ class NetworkModule {
         factory: Converter.Factory
     ): CompanyApi {
         return Retrofit.Builder()
-            .baseUrl("http://info.sweettracker.co.kr/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(factory)
             .client(okHttpClient)
             .build()
@@ -35,7 +36,7 @@ class NetworkModule {
         factory: Converter.Factory
     ): TrackingInfoApi {
         return Retrofit.Builder()
-            .baseUrl("http://info.sweettracker.co.kr/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(factory)
             .client(okHttpClient)
             .build()

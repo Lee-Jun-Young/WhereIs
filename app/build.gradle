@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "t_KEY", '"jr9UL2Z1sgazYkzarbUibw"'
+        buildConfigField("String", "BASE_URL", '"http://info.sweettracker.co.kr/"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
