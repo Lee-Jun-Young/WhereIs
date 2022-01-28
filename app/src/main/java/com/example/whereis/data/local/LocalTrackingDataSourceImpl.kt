@@ -2,10 +2,10 @@ package com.example.whereis.data.local
 
 import android.content.Context
 import com.example.whereis.model.TrackingData
+import javax.inject.Inject
 
-class LocalTrackingDataSourceImpl(context: Context): LocalTrackingDataSource {
-
-    private val trackingDao: TrackingDao = TrackingDatabase.getDatabase(context)!!.trackingDao()
+class LocalTrackingDataSourceImpl @Inject constructor(private val trackingDao: TrackingDao) :
+    LocalTrackingDataSource {
 
     override fun insertData(trackingData: TrackingData) {
         trackingDao.insertData(trackingData)

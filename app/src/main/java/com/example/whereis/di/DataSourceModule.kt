@@ -1,5 +1,7 @@
 package com.example.whereis.di
 
+import com.example.whereis.data.local.LocalTrackingDataSource
+import com.example.whereis.data.local.LocalTrackingDataSourceImpl
 import com.example.whereis.data.remote.RemoteCompanyDataSource
 import com.example.whereis.data.remote.RemoteCompanyDataSourceImpl
 import com.example.whereis.data.remote.RemoteTrackingInfoDataSource
@@ -15,4 +17,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun providerRemoteTrackingInfoDataSource(remoteTrackingInfoDataSource: RemoteTrackingInfoDataSourceImpl): RemoteTrackingInfoDataSource
+
+    @Binds
+    abstract fun provideLocalTrackingDataSource(localTrackingDataSource: LocalTrackingDataSourceImpl): LocalTrackingDataSource
 }
