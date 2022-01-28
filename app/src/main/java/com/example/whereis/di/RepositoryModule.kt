@@ -14,6 +14,6 @@ abstract class RepositoryModule {
     abstract fun provideTrackingInfoRepository(trackingInfoRepository: TrackingInfoRepositoryImpl): TrackingInfoRepository
 
     @Binds
-    abstract fun providerCompanyRepository(companyRepository: CompanyRepositoryImpl): CompanyRepository
+    abstract fun provideCompanyRepository(companyRepository: CompanyRepositoryImpl): CompanyRepository
 
 }

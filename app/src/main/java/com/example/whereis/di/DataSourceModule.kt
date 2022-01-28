@@ -13,10 +13,10 @@ import dagger.Module
 abstract class DataSourceModule {
 
     @Binds
-    abstract fun providerRemoteCompanyDataSource(remoteCompanyDataSource: RemoteCompanyDataSourceImpl): RemoteCompanyDataSource
+    abstract fun provideRemoteCompanyDataSource(remoteCompanyDataSource: RemoteCompanyDataSourceImpl): RemoteCompanyDataSource
 
     @Binds
-    abstract fun providerRemoteTrackingInfoDataSource(remoteTrackingInfoDataSource: RemoteTrackingInfoDataSourceImpl): RemoteTrackingInfoDataSource
+    abstract fun provideRemoteTrackingInfoDataSource(remoteTrackingInfoDataSource: RemoteTrackingInfoDataSourceImpl): RemoteTrackingInfoDataSource
 
     @Binds
     abstract fun provideLocalTrackingDataSource(localTrackingDataSource: LocalTrackingDataSourceImpl): LocalTrackingDataSource
